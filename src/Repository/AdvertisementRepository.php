@@ -34,6 +34,20 @@ class AdvertisementRepository extends ServiceEntityRepository
         $advertisements = $query->getResult();
         return $advertisements;
     }
+    public function getAdByContract(EntityManager $entityManager, string $contract)
+    {
+        $query = $entityManager->createQuery('SELECT ad FROM jobBoard\src\Entity\Advertisement ad WHERE ad.contract = ?1')->setParameter('1', $contract);
+        $advertisements = $query->getResult();
+        return $advertisements;
+    }
+
+    public function getAdByTitle(EntityManager $entityManager, string $search)
+    {
+        $query = $entityManager->createQuery('SELECT ad FROM jobBoard\src\Entity\Advertisement ad WHERE ad.title LIKE \"%?1%\"')->setParameter('1', $search);
+        $advertisements = $query->getResult();
+        return $advertisements;
+    }
+    
 
 //    /**
 //     * @return Advertisement[] Returns an array of Advertisement objects

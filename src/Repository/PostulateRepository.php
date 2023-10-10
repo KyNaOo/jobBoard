@@ -20,6 +20,7 @@ class PostulateRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Postulate::class);
     }
+    //Pour ajouter une candidature : persist suivi de flush : $entityManager->persist($postulate) et suivi de $entityManager->flush()
 
 //    /**
 //     * @return Postulate[] Returns an array of Postulate objects
