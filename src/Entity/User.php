@@ -51,6 +51,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Postulate::class)]
     private Collection $postulates;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Company $companyId = null;
+
     public function __construct()
     {
         $this->postulates = new ArrayCollection();
@@ -224,6 +227,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $postulate->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompanyId(): ?Company
+    {
+        return $this->companyId;
+    }
+
+    public function setCompanyId(?Company $companyId): static
+    {
+        $this->companyId = $companyId;
 
         return $this;
     }

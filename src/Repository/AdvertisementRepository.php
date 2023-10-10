@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Advertisement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +20,19 @@ class AdvertisementRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Advertisement::class);
+    }
+
+    public function getFiveLatestAd(EntityManager $entityManager)
+    {
+        $query = $entityManager->createQuery('SELECT ad FROM jobBoard\src\Entity\Advertisement ad ORDER BY ad.date DESC LIMIT 5');
+        $advertisements = $query->getResult();
+        return $advertisements;
+    }
+    public function getAdByLocation(EntityManager $entityManager, string $location)
+    {
+        $query = $entityManager->createQuery('SELECT ad FROM jobBoard\src\Entity\Advertisement ad WHERE ad.location = ?1')->setParameter('1', $location);
+        $advertisements = $query->getResult();
+        return $advertisements;
     }
 
 //    /**
