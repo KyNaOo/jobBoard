@@ -54,9 +54,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Company $companyId = null;
 
+    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Advertisement::class)]
+    private Collection $advertisements;
+
     public function __construct()
     {
         $this->postulates = new ArrayCollection();
+        $this->advertisements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -239,6 +243,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCompanyId(?Company $companyId): static
     {
         $this->companyId = $companyId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Advertisement>
+     */
+    public function getAdvertisements(): Collection
+    {
+        return $this->advertisements;
+    }
+
+    public function addAdvertisement(Advertisement $advertisement): static
+    {
+        if (!$this->advertisements->contains($advertisement)) {
+            $this->advertisements->add($advertisement);
+            $advertisement->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdvertisement(Advertisement $advertisement): static
+    {
+        if ($this->advertisements->removeElement($advertisement)) {
+            // set the owning side to null (unless already changed)
+            if ($advertisement->getUserId() === $this) {
+                $advertisement->setUserId(null);
+            }
+        }
 
         return $this;
     }

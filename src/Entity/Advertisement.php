@@ -47,6 +47,9 @@ class Advertisement
     #[ORM\Column(length: 255)]
     private ?string $worhingTime = null;
 
+    #[ORM\ManyToOne(inversedBy: 'advertisements')]
+    private ?User $userId = null;
+
     public function __construct()
     {
         $this->postulates = new ArrayCollection();
@@ -191,6 +194,18 @@ class Advertisement
     public function setWorhingTime(string $worhingTime): static
     {
         $this->worhingTime = $worhingTime;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(?User $userId): static
+    {
+        $this->userId = $userId;
 
         return $this;
     }
