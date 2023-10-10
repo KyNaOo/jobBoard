@@ -41,6 +41,12 @@ class Advertisement
     #[ORM\Column(length: 255)]
     private ?string $wages = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $contract = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $worhingTime = null;
+
     public function __construct()
     {
         $this->postulates = new ArrayCollection();
@@ -161,6 +167,30 @@ class Advertisement
     public function setWages(string $wages): static
     {
         $this->wages = $wages;
+
+        return $this;
+    }
+
+    public function getContract(): ?string
+    {
+        return $this->contract;
+    }
+
+    public function setContract(string $contract): static
+    {
+        $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getWorhingTime(): ?string
+    {
+        return $this->worhingTime;
+    }
+
+    public function setWorhingTime(string $worhingTime): static
+    {
+        $this->worhingTime = $worhingTime;
 
         return $this;
     }

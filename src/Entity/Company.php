@@ -25,9 +25,6 @@ class Company
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $creationDate = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $workingTime = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $revenues = null;
 
@@ -40,9 +37,13 @@ class Company
     #[ORM\OneToMany(mappedBy: 'companyId', targetEntity: Advertisement::class)]
     private Collection $advertisements;
 
+    #[ORM\OneToMany(mappedBy: 'companyId', targetEntity: User::class)]
+    private Collection $users;
+
     public function __construct()
     {
         $this->advertisements = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,18 +83,6 @@ class Company
     public function setCreationDate(\DateTimeInterface $creationDate): static
     {
         $this->creationDate = $creationDate;
-
-        return $this;
-    }
-
-    public function getWorkingTime(): ?string
-    {
-        return $this->workingTime;
-    }
-
-    public function setWorkingTime(string $workingTime): static
-    {
-        $this->workingTime = $workingTime;
 
         return $this;
     }
@@ -158,6 +147,36 @@ class Company
             // set the owning side to null (unless already changed)
             if ($advertisement->getCompanyId() === $this) {
                 $advertisement->setCompanyId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setCompanyId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getCompanyId() === $this) {
+                $user->setCompanyId(null);
             }
         }
 
