@@ -19,3 +19,4 @@
 /phpunit.xml
 .env
 ###< symfony/phpunit-bridge ###
+/.env
