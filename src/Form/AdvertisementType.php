@@ -18,6 +18,7 @@ class AdvertisementType extends AbstractType
             ->add('adress')
             ->add('resume')
             ->add('wages')
+            ->add('worhingTime')
             ->add('companyId')
         ;
     }

@@ -15,7 +15,6 @@ class CompanyType extends AbstractType
             ->add('name')
             ->add('location')
             ->add('creationDate')
-            ->add('workingTime')
             ->add('revenues')
             ->add('nbEmployees')
             ->add('domain')
