@@ -45,7 +45,7 @@ class Advertisement
     private ?string $contract = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $worhingTime = null;
+    private ?string $workingTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'advertisements')]
     private ?User $userId = null;
@@ -186,14 +186,14 @@ class Advertisement
         return $this;
     }
 
-    public function getWorhingTime(): ?string
+    public function getWorkingTime(): ?string
     {
-        return $this->worhingTime;
+        return $this->workingTime;
     }
 
-    public function setWorhingTime(string $worhingTime): static
+    public function setWorkingTime(string $workingTime): static
     {
-        $this->worhingTime = $worhingTime;
+        $this->workingTime = $workingTime;
 
         return $this;
     }

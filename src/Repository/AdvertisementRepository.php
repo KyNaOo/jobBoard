@@ -22,28 +22,41 @@ class AdvertisementRepository extends ServiceEntityRepository
         parent::__construct($registry, Advertisement::class);
     }
 
-    public function getFiveLatestAd(EntityManager $entityManager)
+    public function getFiveLatestAd()
     {
-        $query = $entityManager->createQuery('SELECT ad FROM jobBoard\src\Entity\Advertisement ad ORDER BY ad.date DESC LIMIT 5');
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT ad FROM App\Entity\Advertisement ad');
         $advertisements = $query->getResult();
         return $advertisements;
     }
-    public function getAdByLocation(EntityManager $entityManager, string $location)
+    public function getAdByLocation(string $location)
     {
-        $query = $entityManager->createQuery('SELECT ad FROM jobBoard\src\Entity\Advertisement ad WHERE ad.location = ?1')->setParameter('1', $location);
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT ad FROM App\Entity\Advertisement ad WHERE ad.location = ?1')->setParameter('1', $location);
         $advertisements = $query->getResult();
         return $advertisements;
     }
-    public function getAdByContract(EntityManager $entityManager, string $contract)
+    public function getAdByContract(string $contract)
     {
-        $query = $entityManager->createQuery('SELECT ad FROM jobBoard\src\Entity\Advertisement ad WHERE ad.contract = ?1')->setParameter('1', $contract);
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT ad FROM App\Entity\Advertisement ad WHERE ad.contract = ?1')->setParameter('1', $contract);
         $advertisements = $query->getResult();
         return $advertisements;
     }
 
-    public function getAdByTitle(EntityManager $entityManager, string $search)
+    public function getAdByTitle(string $search)
     {
-        $query = $entityManager->createQuery('SELECT ad FROM jobBoard\src\Entity\Advertisement ad WHERE ad.title LIKE \"%?1%\"')->setParameter('1', $search);
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery("SELECT ad FROM App\Entity\Advertisement ad WHERE ad.title LIKE '%".$search."%'");
+        $advertisements = $query->getResult();
+        return $advertisements;
+        
+    }
+
+    public function getNbAd()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT COUNT(ad) FROM App\Entity\Advertisement ad');
         $advertisements = $query->getResult();
         return $advertisements;
     }
