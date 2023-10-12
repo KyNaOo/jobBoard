@@ -6,6 +6,8 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType; 
+use Symfony\Component\Validator\Constraints\Choice;
 
 class UserType extends AbstractType
 {
@@ -13,11 +15,19 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('password')
             ->add('firstName')
             ->add('lastName')
             ->add('birth')
-            ->add('gender')
+            ->add('gender', ChoiceType::class, [
+                'choices' => [
+                    'Male' => 1,
+                    'Female' => 2,
+                    'Other' => 3,
+                ],
+                'constraints' => [
+                    new Choice([1, 2, 3]),
+                ],
+            ])
             ->add('phone')
             ->add('city')
         ;
