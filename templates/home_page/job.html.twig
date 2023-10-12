@@ -7,21 +7,23 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
+    {%block stylesheet%}
+    <link rel="shortcut icon" type="{{asset('image/x-icon" href="img/favicon.png')}}" />
 
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="css/magnific-popup.css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" href="css/themify-icons.css" />
-    <link rel="stylesheet" href="css/nice-select.css" />
-    <link rel="stylesheet" href="css/flaticon.css" />
-    <link rel="stylesheet" href="css/gijgo.css" />
-    <link rel="stylesheet" href="css/animate.min.css" />
-    <link rel="stylesheet" href="css/slicknav.css" />
-
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/magnific-popup.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/themify-icons.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/nice-select.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/flaticon.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/gijgo.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/slicknav.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/responsive.css')}}" />
+    {%endblock%}
   </head>
 
   <body>
@@ -42,7 +44,7 @@
                   <div class="main-menu d-none d-lg-block">
                     <nav>
                       <ul id="navigation">
-                        <li><a href="jobs.html">home</a></li>
+                        <li><a href="/home">home</a></li>
                         <li>
                           </ul>
                         </li>
@@ -53,7 +55,7 @@
                 <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                   <div class="Appointment">
                     <div class="phone_num d-none d-xl-block">
-                      <a href="#">Log in</a>
+                      <a href="/{{app.user ? 'logout' : 'login'}}">{{app.user ? 'Logout' : 'Login'}}</a>
                     </div>
                     <div class="d-none d-lg-block">
                       <a class="boxed-btn3" href="#">Post a Job</a>
@@ -75,13 +77,12 @@
         <div class="row">
           <div class="col-xl-12">
             <div class="bradcam_text">
-              <h3>Software Engineer</h3>
+              <h3>Contrat : {{ad.contract}}</h3>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="job_details_area">
       <div class="container">
         <div class="row">
@@ -94,10 +95,10 @@
                     <a href="#"><h4>Software Engineer</h4></a>
                     <div class="links_locat d-flex align-items-center">
                       <div class="location">
-                        <p><i class="fa fa-map-marker"></i> California, USA</p>
+                        <p><i class="fa fa-map-marker"></i>{{ad.location}} </p>
                       </div>
                       <div class="location">
-                        <p><i class="fa fa-clock-o"></i> Part-time</p>
+                        <p><i class="fa fa-clock-o"></i>{{ad.contract}}</p>
                       </div>
                     </div>
                   </div>
@@ -113,36 +114,10 @@
               <div class="single_wrap">
                 <h4>Job description</h4>
                 <p>
-                  There are many variations of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour, or randomised words which don't look
-                  even slightly believable. If you are going to use a passage of
-                  Lorem Ipsum, you need to be sure there isn't anything
-                  embarrassing.
-                </p>
-                <p>
-                  Variations of passages of lorem Ipsum available, but the
-                  majority have suffered alteration in some form, by injected
-                  humour, or randomised words which don't look even slightly
-                  believable. If you are going to use a passage of Lorem Ipsum,
-                  you need to be sure there isn't anything embarrassing.
+                {{ad.description}}
                 </p>
               </div>
               <div class="single_wrap">
-                <h4>Responsibility</h4>
-                <ul>
-                  <li>
-                    The applicants should have experience in the following
-                    areas.
-                  </li>
-                  <li>Have sound knowledge of commercial activities.</li>
-                  <li>
-                    Leadership, analytical, and problem-solving abilities.
-                  </li>
-                  <li>
-                    Should have vast knowledge in IAS/ IFRS, Company Act, Income
-                    Tax, VAT.
-                  </li>
                 </ul>
               </div>
               <div class="single_wrap">
@@ -162,66 +137,16 @@
                   </li>
                 </ul>
               </div>
-              <div class="single_wrap">
-                <h4>Benefits</h4>
-                <p>
-                  There are many variations of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour, or randomised words which don't look
-                  even slightly believable. If you are going to use a passage of
-                  Lorem Ipsum, you need to be sure there isn't anything
-                  embarrassing.
-                </p>
-              </div>
             </div>
             <div class="apply_job_form white-bg">
-              <h4>Apply for the job</h4>
-              <form action="#">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="input_field">
-                      <input type="text" placeholder="Your name" />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="input_field">
-                      <input type="text" placeholder="Email" />
-                    </div>
-                  </div>
+              <h4>Postuler</h4>
+              {% if user %}
+              <h5>Vos informations ont été récupérées depuis votre profil</h5>
+              {{form_start(form)}}
+              <div class="row">
                   <div class="col-md-12">
                     <div class="input_field">
-                      <input type="text" placeholder="Website/Portfolio link" />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <button type="button" id="inputGroupFileAddon03">
-                          <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                        </button>
-                      </div>
-                      <div class="custom-file">
-                        <input
-                          type="file"
-                          class="custom-file-input"
-                          id="inputGroupFile03"
-                          aria-describedby="inputGroupFileAddon03"
-                        />
-                        <label class="custom-file-label" for="inputGroupFile03"
-                          >Upload CV</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="input_field">
-                      <textarea
-                        name="#"
-                        id=""
-                        cols="30"
-                        rows="10"
-                        placeholder="Coverletter"
-                      ></textarea>
+                    {{form_widget(form.emailSent)}}
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -232,7 +157,45 @@
                     </div>
                   </div>
                 </div>
-              </form>
+              {{form_end(form)}}
+              {% else %}
+              {{form_start(form)}}
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="input_field">
+                      {{form_widget(form.userName)}}
+                    </div>
+                  </div>
+                     <div class="col-md-6">
+                    <div class="input_field">
+                      {{form_widget(form.userLastName)}}
+                    </div>
+                  </div>                 
+                  </div>
+                   <div class="col-md-12">
+                    <div class="input_field">
+                      {{form_widget(form.userEmail)}}
+                    </div>
+                  <div class="col-md-12">
+                    <div class="input_field">
+                      {{form_widget(form.userTel)}}
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="input_field">
+                    {{form_widget(form.emailSent)}}
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="submit_btn">
+                      <button class="boxed-btn3 w-100" type="submit">
+                        Postuler
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              {{form_end(form)}}
+              {% endif %}
             </div>
           </div>
           <div class="col-lg-4">
@@ -243,10 +206,9 @@
               <div class="job_content">
                 <ul>
                   <li>Published on: <span>12 Nov, 2019</span></li>
-                  <li>Vacancy: <span>2 Position</span></li>
-                  <li>Salary: <span>50k - 120k/y</span></li>
-                  <li>Location: <span>California, USA</span></li>
-                  <li>Job Nature: <span> Full-time</span></li>
+                  <li>Salaire : <span> {{ad.wages}} </span></li>
+                  <li>Lieu : <span> {{ad.location}} </span></li>
+                  <li>Contrat : <span> {{ad.contract}}</span></li>
                 </ul>
               </div>
             </div>

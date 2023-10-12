@@ -4,18 +4,46 @@ namespace App\Form;
 
 use App\Entity\Postulate;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class PostulateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('emailSent')
-            ->add('date')
-            ->add('userId')
-            ->add('advertisementId')
+            ->add('emailSent', TextareaType::class,[
+                'label'=> false,
+                'attr'=>[
+                    'placeholder'=>"Email de demande"
+                ]
+            ])
+            ->add('userName', TextType::class,[
+                'label'=> false,
+                'attr'=>[
+                    'placeholder'=>"Prénom"
+                ]
+            ])
+            ->add('userLastName', TextType::class,[
+                'label'=> false,
+                'attr'=>[
+                    'placeholder'=>"Nom de famille"
+                ]
+            ])
+            ->add('userTel', TextType::class,[
+                'label'=> false,
+                'attr'=>[
+                    'placeholder'=>"tel"
+                ]
+            ])
+            ->add('userEmail', TextType::class,[
+                'label'=> false,
+                'attr'=>[
+                    'placeholder'=>"Email"
+                ]
+            ])
         ;
     }
 

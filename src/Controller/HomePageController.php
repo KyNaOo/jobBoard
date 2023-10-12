@@ -2,13 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Advertisement;
+use App\Entity\Postulate;
+use App\Form\PostulateConnectedType;
+use App\Form\PostulateType;
 use App\Form\SearchTitleFormType;
 use App\Repository\AdvertisementRepository;
+use App\Repository\PostulateRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+
 
 class HomePageController extends AbstractController
 {
@@ -37,25 +44,42 @@ class HomePageController extends AbstractController
             'ads'=>$ads,
             'nbAds'=>$nbAds,
         ]);
+    }   
+    #[Route('/infos/{id}', name: 'app_infos')]
+    public function searchTitle(EntityManagerInterface $entityManager, AdvertisementRepository $advertisementRepository, Advertisement $advertisement, Request $request, PostulateRepository $postulateRepository): Response
+    {
+        $postulate = new Postulate;
+        $postulate->setAdvertisementId($advertisement);
+        if($this->getUser()){
+            $form = $this->createForm(PostulateConnectedType::class, null, [
+            'action'=>$this->generateUrl('app_infos', ['id' => $advertisement->getId()]),
+        ]);
+        }else{
+            $form = $this->createForm(PostulateType::class,$postulate,[
+            'action'=>$this->generateUrl('app_infos', ['id' => $advertisement->getId()]),
+        ]);
+        }
+        $date = new \DateTime();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+            if ($this->getUser()){
+                $postulate->setUserId($this->getUser())->setEmailSent($formData['emailSent']);
+                $entityManager->persist($postulate);
+                $entityManager->flush();
+            }else{
+                $entityManager->persist($postulate);
+                $entityManager->flush();
+            }
+        }
+
+
+        return $this->render('home_page/job.html.twig', [
+            'form'=>$form->createView(),
+            'ad'=>$advertisement,
+            'user'=>$this->getUser(),
+            'isConnected'=>!$this->getUser(),
+        ]);
     }
-    // #[Route('/search', name: 'app_search_title')]
-    // public function searchTitle(AdvertisementRepository $advertisementRepository, Request $request): Response
-    // {
-    //     $form = $this->createForm(SearchTitleFormType::class);
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $formData = $form->getData();
-    //         dd($formData);
-    //         $ads = $advertisementRepository->getAdByTitle('test');
-    //     }else{
-    //         $ads = $advertisementRepository->getFiveLatestAd(); 
-    //     }
-    //     $nbAds = $advertisementRepository->getNbAd()[0]['1'];
-    //     return $this->render('home_page/index.html.twig', [
-    //         'form' => $form->createView(),
-    //         'ads'=>$ads,
-    //         'nbAds'=>$nbAds,
-    //     ]);
-    // }
     
 }

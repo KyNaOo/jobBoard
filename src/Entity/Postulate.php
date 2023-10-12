@@ -26,6 +26,21 @@ class Postulate
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $userEmail = null;
+
+    #[ORM\Column(length: 13, nullable: true)]
+    private ?string $userTel = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $userName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $userLastName = null;
+
+    public function __construct(){
+        $this->date = new \DateTime();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +90,54 @@ class Postulate
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getUserEmail(): ?string
+    {
+        return $this->userEmail;
+    }
+
+    public function setUserEmail(?string $userEmail): static
+    {
+        $this->userEmail = $userEmail;
+
+        return $this;
+    }
+
+    public function getUserTel(): ?string
+    {
+        return $this->userTel;
+    }
+
+    public function setUserTel(?string $userTel): static
+    {
+        $this->userTel = $userTel;
+
+        return $this;
+    }
+
+    public function getUserName(): ?string
+    {
+        return $this->userName;
+    }
+
+    public function setUserName(?string $userName): static
+    {
+        $this->userName = $userName;
+
+        return $this;
+    }
+
+    public function getUserLastName(): ?string
+    {
+        return $this->userLastName;
+    }
+
+    public function setUserLastName(?string $userLastName): static
+    {
+        $this->userLastName = $userLastName;
 
         return $this;
     }
