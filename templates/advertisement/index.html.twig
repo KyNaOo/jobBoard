@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advertisement index{% endblock %}
+
+{% block body %}
+    <h1>Advertisement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Adress</th>
+                <th>Resume</th>
+                <th>Wages</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for advertisement in advertisements %}
+            <tr>
+                <td>{{ advertisement.id }}</td>
+                <td>{{ advertisement.title }}</td>
+                <td>{{ advertisement.description }}</td>
+                <td>{{ advertisement.location }}</td>
+                <td>{{ advertisement.adress }}</td>
+                <td>{{ advertisement.resume }}</td>
+                <td>{{ advertisement.wages }}</td>
+                <td>
+                    <a href="{{ path('app_advertisement_show', {'id': advertisement.id}) }}">show</a>
+                    <a href="{{ path('app_advertisement_edit', {'id': advertisement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_advertisement_new') }}">Create new</a>
+{% endblock %}

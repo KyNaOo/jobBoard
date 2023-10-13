@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postulate{% endblock %}
+
+{% block body %}
+    <h1>Postulate</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ postulate.id }}</td>
+            </tr>
+            <tr>
+                <th>EmailSent</th>
+                <td>{{ postulate.emailSent }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ postulate.date ? postulate.date|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_postulate_index') }}">back to list</a>
+
+    <a href="{{ path('app_postulate_edit', {'id': postulate.id}) }}">edit</a>
+
+    {{ include('postulate/_delete_form.html.twig') }}
+{% endblock %}
