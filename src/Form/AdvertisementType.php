@@ -56,6 +56,7 @@ class AdvertisementType extends AbstractType
                     'placeholder'=>"Type de contrat"
                 ]
             ])
+            ->add('companyId')
         ;
     }
 

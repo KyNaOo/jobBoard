@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="{{asset('css/animate.min.css')}}" />
     <link rel="stylesheet" href="{{asset('css/slicknav.css')}}" />
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/responsive.css')}}" />
     {%endblock%}
   </head>
 
@@ -168,11 +167,16 @@
                             <p><i class="fa fa-clock-o"></i> {{ad.contract}}</p>
                           </div>
                         </div>
+                        <p id="des" style="display : none;">
+                        {{ad.description}}
+                        </p>
                       </div>
                     </div>
                     <div class="jobs_right">
                       <div class="apply_now">
-                        <a href="{{path('app_infos', {'id':ad.id})}}" class="boxed-btn3"
+                        <a 
+                        class="boxed-btn3"
+                        id="learnMore"
                           >Voir les informations</a>
                       </div>
                       <div class="date">
@@ -194,6 +198,18 @@
         </div>
       </div>
     </div>
+    <script>
+    const des = document.getElementById('des')
+    const btn = document.getElementById('learnMore')
+    btn.addEventListener('click', function changeDisplay(){
+      if(des.style.display == "none"){
+        des.style.display = "flex"
+      } else {
+        des.style.display = "none"
+      }
+    
+    })
+    </script>
   </body>
 </html>
 {% endblock %}
