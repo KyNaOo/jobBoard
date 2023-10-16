@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType; 
+use Symfony\Component\Form\Extension\Core\Type\DateType; 
 use Symfony\Component\Validator\Constraints\Choice;
 
 class UserType extends AbstractType
@@ -17,7 +18,10 @@ class UserType extends AbstractType
             ->add('email')
             ->add('firstName')
             ->add('lastName')
-            ->add('birth')
+            ->add('birth', DateType::class, [
+                'years'=>range(date('Y')-100, date('Y')-14),
+                    
+                ])
             ->add('gender', ChoiceType::class, [
                 'choices' => [
                     'Male' => 1,
@@ -30,7 +34,7 @@ class UserType extends AbstractType
             ])
             ->add('phone')
             ->add('city')
-            ->add('companyId')
+        
         ;
     }
 

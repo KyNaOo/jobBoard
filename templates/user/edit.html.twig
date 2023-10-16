@@ -2,19 +2,61 @@
 
 {% block title %}Edit User{% endblock %}
 
-{% block body %}
-    <h1>Edit User</h1>
 
+{% block body %}
+<style>
+    body {
+      background: #d7daed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+      .custom-input {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+          box-sizing: border-box; /* Ensure padding and border are included in the width */
+          text-align: left; /* Ensure text is aligned to the left */
+        }
+        
+        .custom-button {
+          width: 100%;
+          padding: 12px;
+          background-color: #ff656c;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          font-size: 18px;
+          cursor: pointer;
+          text-align: center; /* Center-align the button text */
+        }
+        
+        .edit-form {
+          max-width: 400px;
+          margin: 0 auto;
+          padding: 20px;
+          background: #fff;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+        }     
+  </style>
+<div class="edit-form">
+    <h1>Edit User</h1>
     {{ form_start(form) }}
     {{ form_errors(form) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.firstName) }}
-    {{ form_row(form.lastName) }}
-    {{ form_row(form.birth) }}
-    {{ form_row(form.gender) }}
-    {{ form_row(form.phone) }}
-    {{ form_row(form.city) }}
-    <button class="btn">{{ button_label|default('Update') }}</button>
+    {{ form_row(form.email,{'attr': {'class': 'custom-input'}}) }}
+    {{ form_row(form.firstName,{'attr': {'class': 'custom-input'}}) }}
+    {{ form_row(form.lastName,{'attr': {'class': 'custom-input'}}) }}
+    {{ form_row(form.birth,{'attr': {'class': 'custom-input'}}) }}
+    {{ form_row(form.gender,{'attr': {'class': 'custom-input'}}) }}
+    {{ form_row(form.phone,{'attr': {'class': 'custom-input'}}) }}
+    {{ form_row(form.city,{'attr': {'class': 'custom-input'}}) }}
+    <button class="custom-button">{{ button_label|default('Update') }}</button>
     {{ form_end(form) }}
-
+</div>
 {% endblock %}

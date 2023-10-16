@@ -20,14 +20,15 @@
 <article class="wrapper">
     <div class="login-block">
         <h1>Login</h1>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        <input type="email" placeholder="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+        <input type="password" placeholder="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
         <input type="hidden" name="_csrf_token"
         value="{{ csrf_token('authenticate') }}"
     >
         <button class="btn btn-lg btn-primary" type="submit">
             Sign in
         </button>
+        <a href="/register">Not a member?</a>
     </div>
   </article>
 
