@@ -19,7 +19,7 @@ use GuzzleHttp\Client;
 
 class HomePageController extends AbstractController
 {
-    #[Route('/home', name: 'app_home_page')]
+    #[Route('/', name: 'app_home_page')]
     public function index(AdvertisementRepository $advertisementRepository, Request $request): Response
     {
         $form = $this->createForm(SearchTitleFormType::class, null, [
