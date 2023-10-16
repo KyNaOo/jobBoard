@@ -48,7 +48,7 @@
                   <div class="main-menu d-none d-lg-block">
                     <nav>
                       <ul id="navigation">
-                        <li><a href="/home"></a></li>
+                        <li><a href="/"></a></li>
                       </ul>
                     </nav>
                   </div>
@@ -71,7 +71,7 @@
                       {% endif %}  
                     </div>
                     <div class="d-none d-lg-block">
-                      <a class="boxed-btn2" href="#">Post a Job</a>
+                      <a class="boxed-btn2" href="post">Post a Job</a>
                     </div>
                   </div>
                 </div>
@@ -176,7 +176,7 @@
                           >Voir les informations</a>
                       </div>
                       <div class="date">
-                        <p>Date line: 31 Jan 2020</p>
+                        <p> {{ ad.datePub|date("d/m/Y") }} </p>
                       </div>
                     </div>
                   </div>
@@ -196,5 +196,4 @@
     </div>
   </body>
 </html>
-
 {% endblock %}

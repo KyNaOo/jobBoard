@@ -205,7 +205,7 @@
               </div>
               <div class="job_content">
                 <ul>
-                  <li>Published on: <span>12 Nov, 2019</span></li>
+                  <li>Published on: <span>{{ ad.datePub|date("d/m/Y") }}</span></li>
                   <li>Salaire : <span> {{ad.wages}} </span></li>
                   <li>Lieu : <span> {{ad.location}} </span></li>
                   <li>Contrat : <span> {{ad.contract}}</span></li>
