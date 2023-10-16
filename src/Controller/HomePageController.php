@@ -9,12 +9,12 @@ use App\Form\PostulateType;
 use App\Form\SearchTitleFormType;
 use App\Repository\AdvertisementRepository;
 use App\Repository\PostulateRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use GuzzleHttp\Client;
 
 
 class HomePageController extends AbstractController
@@ -66,8 +66,14 @@ class HomePageController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
+            // $client = new Client([
+            //     'base_uri' => 'http://127.0.0.1:8001/api/users',
+            // ]);
             if ($this->getUser()){
                 $postulate->setUserId($this->getUser())->setEmailSent($formData['emailSent']);
+                // $response = $client->request('GET','http://127.0.0.1:8001/api/users?page=1');
+                // $data = json_decode($response->getBody()->getContents());
+                // dd($data->get('hydra:member'));
                 $entityManager->persist($postulate);
                 $entityManager->flush();
             }else{

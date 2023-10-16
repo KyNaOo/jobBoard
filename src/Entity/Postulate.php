@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\PostulateRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: PostulateRepository::class)]
+#[ApiResource]
 class Postulate
 {
     #[ORM\Id]
