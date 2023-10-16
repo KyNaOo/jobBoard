@@ -30,9 +30,6 @@ class Advertisement
     #[ORM\Column(length: 255)]
     private ?string $adress = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $resume = null;
-
     #[ORM\ManyToOne(inversedBy: 'advertisements')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Company $companyId = null;
@@ -51,6 +48,9 @@ class Advertisement
 
     #[ORM\ManyToOne(inversedBy: 'advertisements')]
     private ?User $userId = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $datePub = null;
 
     public function __construct()
     {
@@ -106,18 +106,6 @@ class Advertisement
     public function setAdress(string $adress): static
     {
         $this->adress = $adress;
-
-        return $this;
-    }
-
-    public function getResume(): ?string
-    {
-        return $this->resume;
-    }
-
-    public function setResume(string $resume): static
-    {
-        $this->resume = $resume;
 
         return $this;
     }
@@ -208,6 +196,18 @@ class Advertisement
     public function setUserId(?User $userId): static
     {
         $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getDatePub(): ?\DateTimeInterface
+    {
+        return $this->datePub;
+    }
+
+    public function setDatePub(?\DateTimeInterface $datePub): static
+    {
+        $this->datePub = $datePub;
 
         return $this;
     }
