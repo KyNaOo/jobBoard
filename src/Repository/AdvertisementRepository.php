@@ -26,6 +26,7 @@ class AdvertisementRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery('SELECT ad FROM App\Entity\Advertisement ad');
+        $query->setMaxResults(15);
         $advertisements = $query->getResult();
         return $advertisements;
     }

@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Company;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
-class CompanyFixtures extends Fixture
+class CompanyFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -31,5 +32,8 @@ class CompanyFixtures extends Fixture
             $manager->persist($company);
         }
         $manager->flush();
+    }
+    public function getOrder(): int{
+        return 1;
     }
 }

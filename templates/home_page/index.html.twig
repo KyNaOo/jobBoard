@@ -38,7 +38,7 @@
               <div class="row align-items-center">
                 <div class="col-xl-3 col-lg-2">
                   <div class="logo">
-                    <a href="index.html">
+                    <a href="/">
                       <img src="img/logo.png" alt="" />
                     </a>
                   </div>
@@ -147,9 +147,11 @@
               <div class="row">
                 <div class="col-lg-12 col-md-12">
                 {% if ads|length >0 %}
+
                 {% for ad in ads %}
                   <div
                     class="single_jobs white-bg d-flex justify-content-between">
+                    <div>
                     <div class="jobs_left d-flex align-items-center">
                       <div class="thumb">
                         <img src="img/svg_icon/1.svg" alt="" />
@@ -167,22 +169,35 @@
                             <p><i class="fa fa-clock-o"></i> {{ad.contract}}</p>
                           </div>
                         </div>
-                        <p id="des" style="display : none;">
-                        {{ad.description}}
-                        </p>
                       </div>
                     </div>
                     <div class="jobs_right">
                       <div class="apply_now">
                         <a 
                         class="boxed-btn3"
-                        id="learnMore"
+                        id="learnMore-{{ad.id}}"
                           >Voir les informations</a>
                       </div>
                       <div class="date">
                         <p> {{ ad.datePub|date("d/m/Y") }} </p>
                       </div>
                     </div>
+                  </div>
+                  <div  id="des-{{ad.id}}" style="display : none;">
+                  <div style="display:grid;margin-left:5%;">
+                  <h3>Description</h3>
+                      <p  style="margin-left:5%;">
+                      {{ad.description}}
+                      </p>
+                    <h5>Salaire : </h5>
+                    <p style="margin-left:5%;">{{ ad.wages }}</p>
+                    <h5>Adresse</h5>
+                    <p style="margin-left:5%;">{{ad.adress}}</p>
+                    <h5>Heures</h5>
+                    <p style="margin-left:5%;">{{ad.workingTime}}</p>
+                    <a class="boxed-btn3">Postuler</a>
+                  </div>
+                  </div>
                   </div>
                   {% endfor %}
                   {% else %}
@@ -199,9 +214,10 @@
       </div>
     </div>
     <script>
-    const des = document.getElementById('des')
-    const btn = document.getElementById('learnMore')
-    btn.addEventListener('click', function changeDisplay(){
+    {# const des = document.querySelectorAll('#des')
+    const btns = document.querySelectorAll("#learnMore")
+    for(btn of btns){
+      btn.addEventListener('click', function changeDisplay(){
       if(des.style.display == "none"){
         des.style.display = "flex"
       } else {
@@ -209,6 +225,23 @@
       }
     
     })
+    } #}
+    let adId;
+    {% for ad in ads %}
+    adId = {{ ad.id|json_encode() }}
+    let des{{ ad.id|json_encode() }} = document.getElementById(`des-${adId}`)
+    let btn{{ ad.id|json_encode() }} = document.getElementById(`learnMore-${adId}`)
+    btn{{ ad.id|json_encode() }}.addEventListener('click', function changeDisplay(){
+      if(des{{ ad.id|json_encode() }}.style.display == "none"){
+        des{{ ad.id|json_encode() }}.style.display = "flex"
+        btn{{ ad.id|json_encode() }}.innerHTML = "Cacher les informations"
+      } else {
+        des{{ ad.id|json_encode() }}.style.display = "none"
+        btn{{ ad.id|json_encode() }}.innerHTML = "Voir les informations"
+      }
+    })
+    
+    {% endfor %}
     </script>
   </body>
 </html>

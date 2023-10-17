@@ -14,7 +14,7 @@
     </button>
     <script>
         const des = document.getElementById('des')
-        const btn1 = document.getElementById('learnMore')
+        const btn1 = document.querySelectorAll("#learnMore")
         btn1.addEventListener('click', function changeDisplay(){
         if(des.style.display == "none"){
             des.style.display = "flex"

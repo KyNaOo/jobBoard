@@ -5,12 +5,20 @@ namespace App\DataFixtures;
 use App\Entity\Company;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager): void
+    private UserPasswordHasherInterface $hasher;
+
+    public function __construct(UserPasswordHasherInterface $passHasher){
+        $this->hasher = $passHasher;
+    }
+
+    public function load(ObjectManager $manager, ): void
     {
         require_once 'vendor/autoload.php';
         $faker = Faker\Factory::create('fr_FR');
@@ -35,14 +43,17 @@ class UserFixtures extends Fixture
                  ->setCity($faker->city)
                  ->setEmail($faker->email)
                  ->setRoles([$roles[random_int(0,1)]])
-                 ->setPassword('123456')
+                 ->setPassword($this->hasher->hashPassword($user, '123456'))
                  ->setPhone($faker->numerify('0#########'));
             if($user->getRoles()[0]==='ROLE_RH'){
-                 $user->setCompanyId($companies[random_int(0, count($companies))]);
+                 $user->setCompanyId($companies[random_int(0, count($companies)-1)]);
             }
             $manager->persist($user);
 
         }
         $manager->flush();
+    }
+    public function getOrder(): int{
+        return 2;
     }
 }
