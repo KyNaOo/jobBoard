@@ -25,7 +25,7 @@ class AdvertisementRepository extends ServiceEntityRepository
     public function getFiveLatestAd()
     {
         $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery('SELECT ad FROM App\Entity\Advertisement ad');
+        $query = $entityManager->createQuery('SELECT ad FROM App\Entity\Advertisement ad ORDER BY ad.datePub desc');
         $query->setMaxResults(15);
         $advertisements = $query->getResult();
         return $advertisements;
