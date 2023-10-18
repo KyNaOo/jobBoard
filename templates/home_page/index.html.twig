@@ -26,6 +26,20 @@
     <link rel="stylesheet" href="{{asset('css/animate.min.css')}}" />
     <link rel="stylesheet" href="{{asset('css/slicknav.css')}}" />
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/addedStyle.css')}}" />
+
+<style>
+{# .popup {
+  display: none;
+} #}
+
+{# .popup-content {
+  position: absolute;
+} #}
+
+</style>
+
+
     {%endblock%}
   </head>
 
@@ -69,9 +83,13 @@
                       <a href="/home">{{app.user ? 'Profil' : ''}}</a>
                       {% endif %}  
                     </div>
+                    {% if role %}
+                    {% if (role == 'ROLE_RH')%}
                     <div class="d-none d-lg-block">
                       <a class="boxed-btn2" href="post">Post a Job</a>
                     </div>
+                    {% endif %}
+                    {% endif %}
                   </div>
                 </div>
                 <div class="col-12">
@@ -157,8 +175,7 @@
                         <img src="img/svg_icon/1.svg" alt="" />
                       </div>
                       <div class="jobs_conetent">
-                        <a href="job_details.html"
-                          ><h4>{{ad.title}}</h4></a>
+                        <h4>{{ad.title}}</h4>
                         <div class="links_locat d-flex align-items-center">
                           <div class="location">
                             <p>
@@ -195,7 +212,37 @@
                     <p style="margin-left:5%;">{{ad.adress}}</p>
                     <h5>Heures</h5>
                     <p style="margin-left:5%;">{{ad.workingTime}}</p>
-                    <a class="boxed-btn3">Postuler</a>
+                    <button id="btnForm-{{ad.id}}" class="boxed-btn3">Postuler</button>
+                        <div id="form-{{ad.id}}" class="popup popup-none">
+                        <div class="popup-content">
+                            <span class="close" id="closePopup-{{ad.id}}">&times;</span>
+
+                            {% if user %}
+                                <h5>Vos informations ont été récupérées depuis votre profil</h5>
+                                <form id="frm-{{ad.id}}" action="/">
+                                <textarea name="emailSent" placeholder="Email d'envoi" ></textarea>
+                                <input type="hidden" value="{{ad.id}}" name="adId">
+                                <button type="submit">Postuler</button>
+                                </form>
+                                {# {{form_start(formPos)}}
+                                
+                                {{form_end(formPos)}} #}
+                            {% else %}
+                                <form id="frm-{{ad.id}}" action="/">
+                                <textarea name="emailSent" placeholder="Email d'envoi" ></textarea>
+                                <input type="text" name="firstName" placeholder="Prénom">
+                                <input type="text" name="lastName" placeholder="Nom">
+                                <input type="email" name="email" placeholder="Adresse Email">
+                                <input type="text" name="tel" placeholder="Téléphone" maxlength="13" minlength="10">
+                                <input type="hidden" value="{{ad.id}}" name="adId">
+                                <button type="submit">Postuler</button>
+                                </form>
+                            {% endif %}
+
+
+
+                        </div>
+                    </div>
                   </div>
                   </div>
                   </div>
@@ -213,20 +260,11 @@
         </div>
       </div>
     </div>
+
     <script>
-    {# const des = document.querySelectorAll('#des')
-    const btns = document.querySelectorAll("#learnMore")
-    for(btn of btns){
-      btn.addEventListener('click', function changeDisplay(){
-      if(des.style.display == "none"){
-        des.style.display = "flex"
-      } else {
-        des.style.display = "none"
-      }
-    
-    })
-    } #}
+
     let adId;
+    let formadid 
     {% for ad in ads %}
     adId = {{ ad.id|json_encode() }}
     let des{{ ad.id|json_encode() }} = document.getElementById(`des-${adId}`)
@@ -240,7 +278,20 @@
         btn{{ ad.id|json_encode() }}.innerHTML = "Voir les informations"
       }
     })
-    
+    let form{{ ad.id|json_encode() }} = document.getElementById(`form-${adId}`)
+    let btnForm{{ ad.id|json_encode() }} = document.getElementById(`btnForm-${adId}`)
+    let closePopup{{ ad.id|json_encode() }} = document.getElementById(`closePopup-${adId}`)
+    {# formadid = document.getElementById(`postulate_connected_adId`) #}
+    btnForm{{ ad.id|json_encode() }}.addEventListener('click', function openPopup(){
+      form{{ ad.id|json_encode() }}.classList.remove('popup-none')
+      {# formadid.value = {{ad.id}}
+      console.log(formadid) #}
+      console.log(form{{ ad.id|json_encode() }})
+
+    });
+    closePopup{{ ad.id|json_encode() }}.addEventListener('click', function closePopup(){
+      form{{ ad.id|json_encode() }}.classList.add('popup-none')
+    });
     {% endfor %}
     </script>
   </body>

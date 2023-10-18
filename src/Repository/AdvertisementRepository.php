@@ -61,6 +61,14 @@ class AdvertisementRepository extends ServiceEntityRepository
         $advertisements = $query->getResult();
         return $advertisements;
     }
+
+    public function getAdById(int $id)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT ad FROM App\Entity\Advertisement ad WHERE ad.id = ?1')->setParameter('1', $id);
+        $advertisements = $query->getResult();
+        return $advertisements;
+    }
     
 
 //    /**

@@ -22,8 +22,24 @@ use GuzzleHttp\Client;
 class HomePageController extends AbstractController
 {
     #[Route('/', name: 'app_home_page')]
-    public function index(AdvertisementRepository $advertisementRepository, Request $request): Response
+    public function index(EntityManagerInterface $entityManager, AdvertisementRepository $advertisementRepository, Request $request): Response
     {
+        $postulate = new Postulate;
+        if($this->getUser()){
+            $role = $this->getUser()->getRoles()[0];
+            $user=$this->getUser();
+            // $formPostulate = $this->createForm(PostulateConnectedType::class, null, [
+            //     'action'=>'/',
+            // ]);
+        } else {
+            $role = null;
+            $user=null;
+            // $formPostulate = $this->createForm(PostulateType::class,$postulate,[
+            //     'action'=>'/',
+            // ]);
+        }
+        // $formPostulate->handleRequest($request);
+        
         $form = $this->createForm(SearchTitleFormType::class, null, [
             'action' => '/'
         ]);
@@ -40,14 +56,54 @@ class HomePageController extends AbstractController
                 'form' => $form->createView(),
                 'ads'=>$ads,
                 'nbAds'=>$nbAds,
+                'role'=>$role,
+                'user'=>$user,
+                // 'formPos'=>$formPostulate->createView(),
             ]);
         }else{
             $ads = $advertisementRepository->getFiveLatestAd();
         }
+
+        // if ($formPostulate->isSubmitted() && $formPostulate->isValid()) {
+        //     $formDataPos = $formPostulate->getData();
+        //     dd($formDataPos);
+        //     if ($this->getUser()){
+
+        //         $postulate->setUserId($this->getUser())->setEmailSent($formDataPos['emailSent']);
+
+        //         dd($postulate);
+        //         $entityManager->persist($postulate);
+        //         $entityManager->flush();
+        //     }else{
+        //         $entityManager->persist($postulate);
+        //         $entityManager->flush();
+        //     }
+        // }
+        // dd($request->query->get('adId'));
+        if($request->query->get('emailSent')){
+             $postulate
+            ->setEmailSent($request->query->get('emailSent'))
+            ->setAdvertisementId($advertisementRepository->getAdById($request->query->get('adId'))[0]); 
+            if($this->getUser()){
+                $postulate->setUserId($this->getUser());
+            } else {
+                $postulate
+                ->setUserName($request->query->get('firstName'))
+                ->setUserLastName($request->query->get('lastName'))
+                ->setUserEmail($request->query->get('email'))
+                ->setUserTel($request->query->get('firstName'));
+            }
+            $entityManager->persist($postulate);
+            $entityManager->flush();
+        }
+       
         return $this->render('home_page/index.html.twig', [
             'form' => $form->createView(),
             'ads'=>$ads,
             'nbAds'=>$nbAds,
+            'role'=>$role,
+            'user'=>$user,
+            // 'formPos'=>$formPostulate->createView(),
         ]);
     }
     #[Route('/infos/{id}', name: 'app_infos')]
