@@ -20,6 +20,14 @@ class PostulateRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Postulate::class);
     }
+
+    public function getPosByUser(int $idUser)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT po FROM App\Entity\Postulate po WHERE po.userId = ?1')->setParameter('1', $idUser);
+        $postulates = $query->getResult();
+        return $postulates;
+    }
     //Pour ajouter une candidature : persist suivi de flush : $entityManager->persist($postulate) et suivi de $entityManager->flush()
 
 //    /**

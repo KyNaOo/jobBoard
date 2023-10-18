@@ -22,7 +22,7 @@ use GuzzleHttp\Client;
 class HomePageController extends AbstractController
 {
     #[Route('/', name: 'app_home_page')]
-    public function index(EntityManagerInterface $entityManager, AdvertisementRepository $advertisementRepository, Request $request): Response
+    public function index(EntityManagerInterface $entityManager, AdvertisementRepository $advertisementRepository, Request $request, PostulateRepository $postulateRepository): Response
     {
         $postulate = new Postulate;
         if($this->getUser()){
@@ -80,21 +80,34 @@ class HomePageController extends AbstractController
         //     }
         // }
         // dd($request->query->get('adId'));
-        if($request->query->get('emailSent')){
+        // dd($_POST);
+        if($_POST){
+            $verif =true;
+            $l=[];
              $postulate
-            ->setEmailSent($request->query->get('emailSent'))
-            ->setAdvertisementId($advertisementRepository->getAdById($request->query->get('adId'))[0]); 
+            ->setEmailSent($_POST['emailSent'])
+            ->setAdvertisementId($advertisementRepository->getAdById($_POST['adId'])[0]); 
             if($this->getUser()){
                 $postulate->setUserId($this->getUser());
+                $thePos = $postulateRepository->getPosByUser($this->getUser()->getId());
+                    foreach($thePos as $thePo){
+                        if($thePo->getAdvertisementId()->getId()==intval($_POST['adId'])){
+                            $verif=false;
+                        }
+                    }
+                    
             } else {
                 $postulate
-                ->setUserName($request->query->get('firstName'))
-                ->setUserLastName($request->query->get('lastName'))
-                ->setUserEmail($request->query->get('email'))
-                ->setUserTel($request->query->get('firstName'));
+                ->setUserName($_POST['firstName'])
+                ->setUserLastName($_POST['lastName'])
+                ->setUserEmail($_POST['email'])
+                ->setUserTel($_POST['tel']);
             }
-            $entityManager->persist($postulate);
-            $entityManager->flush();
+            if($verif){
+                $entityManager->persist($postulate);
+                $entityManager->flush();
+            }
+            
         }
        
         return $this->render('home_page/index.html.twig', [
@@ -106,48 +119,48 @@ class HomePageController extends AbstractController
             // 'formPos'=>$formPostulate->createView(),
         ]);
     }
-    #[Route('/infos/{id}', name: 'app_infos')]
-    public function searchTitle(EntityManagerInterface $entityManager, Advertisement $advertisement, Request $request, PostulateRepository $postulateRepository): Response
-    {
-        $postulate = new Postulate;
-        $postulate->setAdvertisementId($advertisement);
-        if($this->getUser()){
-            $form = $this->createForm(PostulateConnectedType::class, null, [
-            'action'=>$this->generateUrl('app_infos', ['id' => $advertisement->getId()]),
-        ]);
-        }else{
-            $form = $this->createForm(PostulateType::class,$postulate,[
-            'action'=>$this->generateUrl('app_infos', ['id' => $advertisement->getId()]),
-        ]);
-        }
-        $date = new \DateTime();
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $formData = $form->getData();
-            // $client = new Client([
-            //     'base_uri' => 'http://127.0.0.1:8001/api/users',
-            // ]);
-            if ($this->getUser()){
-                $postulate->setUserId($this->getUser())->setEmailSent($formData['emailSent']);
-                // $response = $client->request('GET','http://127.0.0.1:8001/api/users?page=1');
-                // $data = json_decode($response->getBody()->getContents());
-                // dd($data->get('hydra:member'));
-                $entityManager->persist($postulate);
-                $entityManager->flush();
-            }else{
-                $entityManager->persist($postulate);
-                $entityManager->flush();
-            }
-        }
+    // #[Route('/infos/{id}', name: 'app_infos')]
+    // public function searchTitle(EntityManagerInterface $entityManager, Advertisement $advertisement, Request $request, PostulateRepository $postulateRepository): Response
+    // {
+    //     $postulate = new Postulate;
+    //     $postulate->setAdvertisementId($advertisement);
+    //     if($this->getUser()){
+    //         $form = $this->createForm(PostulateConnectedType::class, null, [
+    //         'action'=>$this->generateUrl('app_infos', ['id' => $advertisement->getId()]),
+    //     ]);
+    //     }else{
+    //         $form = $this->createForm(PostulateType::class,$postulate,[
+    //         'action'=>$this->generateUrl('app_infos', ['id' => $advertisement->getId()]),
+    //     ]);
+    //     }
+    //     $date = new \DateTime();
+    //     $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $formData = $form->getData();
+    //         // $client = new Client([
+    //         //     'base_uri' => 'http://127.0.0.1:8001/api/users',
+    //         // ]);
+    //         if ($this->getUser()){
+    //             $postulate->setUserId($this->getUser())->setEmailSent($formData['emailSent']);
+    //             // $response = $client->request('GET','http://127.0.0.1:8001/api/users?page=1');
+    //             // $data = json_decode($response->getBody()->getContents());
+    //             // dd($data->get('hydra:member'));
+    //             $entityManager->persist($postulate);
+    //             $entityManager->flush();
+    //         }else{
+    //             $entityManager->persist($postulate);
+    //             $entityManager->flush();
+    //         }
+    //     }
 
 
-        return $this->render('home_page/job.html.twig', [
-            'form'=>$form->createView(),
-            'ad'=>$advertisement,
-            'user'=>$this->getUser(),
-            'isConnected'=>!$this->getUser(),
-        ]);
-    }
+    //     return $this->render('home_page/job.html.twig', [
+    //         'form'=>$form->createView(),
+    //         'ad'=>$advertisement,
+    //         'user'=>$this->getUser(),
+    //         'isConnected'=>!$this->getUser(),
+    //     ]);
+    // }
 
     #[Route('/post', name: 'app_post_job')]
     public function postJob(CompanyRepository $companyRepository, Request $request, EntityManagerInterface $entityManager): Response

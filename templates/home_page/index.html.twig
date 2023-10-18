@@ -27,19 +27,6 @@
     <link rel="stylesheet" href="{{asset('css/slicknav.css')}}" />
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
     <link rel="stylesheet" href="{{asset('css/addedStyle.css')}}" />
-
-<style>
-{# .popup {
-  display: none;
-} #}
-
-{# .popup-content {
-  position: absolute;
-} #}
-
-</style>
-
-
     {%endblock%}
   </head>
 
@@ -69,11 +56,11 @@
                 <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                   <div class="Appointment">
                     <div class="phone_num d-none d-xl-block">
-                      <a href="/register">{{app.user ? '' : 'Sign up'}}</a>
+                      <a href="/register">{{app.user ? '' : 'S\'inscrire'}}</a>
                     </div>
                     <div class="phone_num d-none d-xl-block">
                       
-                      <a href="/{{app.user ? 'logout' : 'login'}}">{{app.user ? 'Logout' : 'Login'}}</a>
+                      <a href="/{{app.user ? 'Déconnexion' : 'Connexion'}}">{{app.user ? 'Déconnextion' : 'Connexion'}}</a>
                     
                     </div>
                     <div class="phone_num d-none d-xl-block">
@@ -86,7 +73,7 @@
                     {% if role %}
                     {% if (role == 'ROLE_RH')%}
                     <div class="d-none d-lg-block">
-                      <a class="boxed-btn2" href="post">Post a Job</a>
+                      <a class="boxed-btn2" href="post">Poster une annonce</a>
                     </div>
                     {% endif %}
                     {% endif %}
@@ -108,9 +95,9 @@
           <div class="col-xl-12">
             <div class="bradcam_text">
             {% if nbAds > 1 %}
-              <h3>{{nbAds}} Jobs Available</h3>
+              <h3>{{nbAds}} Offres d'emploi au total</h3>
             {% else %}
-              <h3>{{nbAds}} Job Available</h3>
+              <h3>{{nbAds}} Offre d'emploi seulement</h3>
             {% endif %}
             </div>
           </div>
@@ -124,7 +111,7 @@
           <div class="col-lg-3">
             <div class="job_filter white-bg">
               <div class="form_inner white-bg">
-                <h3>Filter</h3>
+                <h3>Filtrer</h3>
                 {{form_start(form)}}
                   <div class="row">
                     <div class="col-lg-12">
@@ -134,7 +121,7 @@
                     </div>
                   </div>
                 <div class="reset_btn">
-                  <button class="boxed-btn2 w-100" type="submit">search</button>
+                  <button class="boxed-btn2 w-100" type="submit">Rechercher</button>
                 </div>
                 {{form_end(form)}}
               </div>
@@ -146,7 +133,7 @@
                 <div class="row align-items-center">
                   <div class="col-md-6">
                   {% if ads|length > 0 %}
-                    <h4>Job Listing</h4>
+                    <h4>Liste des annonces</h4>
                     {% if ads|length > 1 %}
                     <p>{{ads|length}} resultats</p>
                     {% else %}
@@ -219,16 +206,13 @@
 
                             {% if user %}
                                 <h5>Vos informations ont été récupérées depuis votre profil</h5>
-                                <form id="frm-{{ad.id}}" action="/">
+                                <form id="frm-{{ad.id}}" action="/" method="post">
                                 <textarea name="emailSent" placeholder="Email d'envoi" ></textarea>
                                 <input type="hidden" value="{{ad.id}}" name="adId">
                                 <button type="submit">Postuler</button>
                                 </form>
-                                {# {{form_start(formPos)}}
-                                
-                                {{form_end(formPos)}} #}
                             {% else %}
-                                <form id="frm-{{ad.id}}" action="/">
+                                <form id="frm-{{ad.id}}" action="/" method="post">
                                 <textarea name="emailSent" placeholder="Email d'envoi" ></textarea>
                                 <input type="text" name="firstName" placeholder="Prénom">
                                 <input type="text" name="lastName" placeholder="Nom">
@@ -264,33 +248,32 @@
     <script>
 
     let adId;
-    let formadid 
     {% for ad in ads %}
-    adId = {{ ad.id|json_encode() }}
-    let des{{ ad.id|json_encode() }} = document.getElementById(`des-${adId}`)
-    let btn{{ ad.id|json_encode() }} = document.getElementById(`learnMore-${adId}`)
+    adId = {{ ad.id|json_encode() }};
+    let des{{ ad.id|json_encode() }} = document.getElementById(`des-${adId}`);
+    let btn{{ ad.id|json_encode() }} = document.getElementById(`learnMore-${adId}`);
+
     btn{{ ad.id|json_encode() }}.addEventListener('click', function changeDisplay(){
       if(des{{ ad.id|json_encode() }}.style.display == "none"){
-        des{{ ad.id|json_encode() }}.style.display = "flex"
-        btn{{ ad.id|json_encode() }}.innerHTML = "Cacher les informations"
+        des{{ ad.id|json_encode() }}.style.display = "flex";
+        btn{{ ad.id|json_encode() }}.innerHTML = "Cacher les informations";
       } else {
-        des{{ ad.id|json_encode() }}.style.display = "none"
-        btn{{ ad.id|json_encode() }}.innerHTML = "Voir les informations"
+        des{{ ad.id|json_encode() }}.style.display = "none";
+        btn{{ ad.id|json_encode() }}.innerHTML = "Voir les informations";
       }
-    })
-    let form{{ ad.id|json_encode() }} = document.getElementById(`form-${adId}`)
-    let btnForm{{ ad.id|json_encode() }} = document.getElementById(`btnForm-${adId}`)
-    let closePopup{{ ad.id|json_encode() }} = document.getElementById(`closePopup-${adId}`)
-    {# formadid = document.getElementById(`postulate_connected_adId`) #}
-    btnForm{{ ad.id|json_encode() }}.addEventListener('click', function openPopup(){
-      form{{ ad.id|json_encode() }}.classList.remove('popup-none')
-      {# formadid.value = {{ad.id}}
-      console.log(formadid) #}
-      console.log(form{{ ad.id|json_encode() }})
-
     });
+
+    let form{{ ad.id|json_encode() }} = document.getElementById(`form-${adId}`);
+    let btnForm{{ ad.id|json_encode() }} = document.getElementById(`btnForm-${adId}`);
+    let closePopup{{ ad.id|json_encode() }} = document.getElementById(`closePopup-${adId}`);
+
+    btnForm{{ ad.id|json_encode() }}.addEventListener('click', function openPopup(){
+      form{{ ad.id|json_encode() }}.classList.remove('popup-none');
+      console.log(form{{ ad.id|json_encode() }});
+    });
+
     closePopup{{ ad.id|json_encode() }}.addEventListener('click', function closePopup(){
-      form{{ ad.id|json_encode() }}.classList.add('popup-none')
+      form{{ ad.id|json_encode() }}.classList.add('popup-none');
     });
     {% endfor %}
     </script>
