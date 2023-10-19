@@ -51,6 +51,18 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
             $manager->persist($user);
 
         }
+        $user = new User;
+        $user ->setLastName("Bellaiche")
+        ->setFirstName("Ethan")
+        ->setPassword($this->hasher->hashPassword($user, '123456'))
+        ->setPhone("0102030405")
+        ->setRoles(["ROLE_ADMIN"])
+        ->setCity("Paris")
+        ->setGender(1)
+        ->setEmail("admin@admin.com")
+        ->setBirth($faker->dateTimeBetween('-100 years', '-14 years'))
+        ;
+        $manager->persist($user);
         $manager->flush();
     }
     public function getOrder(): int{
