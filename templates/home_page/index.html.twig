@@ -62,7 +62,7 @@
                     </div>
                     <div class="phone_num d-none d-xl-block">
                       
-                      <a href="/{{app.user ? 'logout' : 'login'}}">{{app.user ? 'Déconnextion' : 'Connexion'}}</a>
+                      <a href="/{{app.user ? 'logout' : 'login'}}">{{app.user ? 'Déconnexion' : 'Connexion'}}</a>
                     
                     </div>
                     <div class="phone_num d-none d-xl-block">
@@ -75,8 +75,15 @@
                     {% if role %}
                     {% if (role == 'ROLE_RH')%}
                     <div class="d-none d-lg-block">
-                      <a class="boxed-btn2" href="post">Poster une annonce</a>
+                      <a class="boxed-btn2" href="post">+ Offre</a>
                     </div>
+                    {% else %}
+
+                    {% if (role == 'ROLE_ADMIN') %}
+                    <div class="d-none d-lg-block">
+                      <a class="boxed-btn2" href="/admin">Dashboard</a>
+                    </div>
+                    {% endif %}
                     {% endif %}
                     {% endif %}
                   </div>
