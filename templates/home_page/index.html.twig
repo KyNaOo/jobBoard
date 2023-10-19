@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{asset('css/slicknav.css')}}" />
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
     <link rel="stylesheet" href="{{asset('css/addedStyle.css')}}" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
     {%endblock%}
   </head>
 
@@ -60,7 +62,7 @@
                     </div>
                     <div class="phone_num d-none d-xl-block">
                       
-                      <a href="/{{app.user ? 'Déconnexion' : 'Connexion'}}">{{app.user ? 'Déconnextion' : 'Connexion'}}</a>
+                      <a href="/{{app.user ? 'logout' : 'login'}}">{{app.user ? 'Déconnextion' : 'Connexion'}}</a>
                     
                     </div>
                     <div class="phone_num d-none d-xl-block">
@@ -203,28 +205,24 @@
                         <div id="form-{{ad.id}}" class="popup popup-none">
                         <div class="popup-content">
                             <span class="close" id="closePopup-{{ad.id}}">&times;</span>
-
                             {% if user %}
-                                <h5>Vos informations ont été récupérées depuis votre profil</h5>
-                                <form id="frm-{{ad.id}}" action="/" method="post">
-                                <textarea name="emailSent" placeholder="Email d'envoi" ></textarea>
-                                <input type="hidden" value="{{ad.id}}" name="adId">
-                                <button type="submit">Postuler</button>
-                                </form>
+                            <h5 class="text-lg font-semibold mb-4">Vos informations ont été récupérées depuis votre profil</h5>
+                            <form id="frm-{{ad.id}}" action="/" method="post" class="bg-white p-4 rounded-lg shadow-md">
+                              <textarea name="emailSent" placeholder="Email d'envoi" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500" required></textarea>
+                              <input type="hidden" value="{{ad.id}}" name="adId">
+                              <button type="submit" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-700">Postuler</button>
+                            </form>                            
                             {% else %}
-                                <form id="frm-{{ad.id}}" action="/" method="post">
-                                <textarea name="emailSent" placeholder="Email d'envoi" ></textarea>
-                                <input type="text" name="firstName" placeholder="Prénom">
-                                <input type="text" name="lastName" placeholder="Nom">
-                                <input type="email" name="email" placeholder="Adresse Email">
-                                <input type="text" name="tel" placeholder="Téléphone" maxlength="13" minlength="10">
-                                <input type="hidden" value="{{ad.id}}" name="adId">
-                                <button type="submit">Postuler</button>
-                                </form>
+                            <form id="frm-{{ad.id}}" action="/" method="post" class="bg-white p-4 rounded-lg shadow-md">
+                              <textarea name="emailSent" placeholder="Email d'envoi" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500 mb-2" required></textarea>
+                              <input type="text" name="firstName" placeholder="Prénom" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500 mb-2" required></input>
+                              <input type="text" name="lastName" placeholder="Nom" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500 mb-2" required></input>
+                              <input type="email" name="email" placeholder="Adresse Email" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500 mb-2" required></input>
+                              <input type="text" name="tel" placeholder="Téléphone" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500 mb-2" pattern="^\d{10,13}$" required></input>
+                              <input type="hidden" value="{{ad.id}}" name="adId">
+                              <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-700 w-full">Postuler</button>
+                            </form>                   
                             {% endif %}
-
-
-
                         </div>
                     </div>
                   </div>
