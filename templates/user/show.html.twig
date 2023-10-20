@@ -19,10 +19,6 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
                 <th>FirstName</th>
                 <td>{{ user.firstName }}</td>
             </tr>
@@ -36,7 +32,15 @@
             </tr>
             <tr>
                 <th>Gender</th>
-                <td>{{ user.gender }}</td>
+                {% if user.gender == 1 %}
+                <td>Homme</td>
+                {% else %}
+                {% if user.gender == 2 %}
+                <td> Femme </td>
+                {% else %}
+                <td> Autre </td>
+                {% endif %}
+                {% endif %}
             </tr>
             <tr>
                 <th>Phone</th>

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AdminCreateUserType;
+use App\Form\ForUserType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,7 +36,7 @@ class UserController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AdminCreateUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,21 +69,40 @@ class UserController extends AbstractController
     {
         $id= $request->attributes->get('id');
         $userid=$this->getUser()->getId();
-        if($id==$userid || $this->getUser()->getRoles()[0]=='ROLE_ADMIN'){
-            $form = $this->createForm(UserType::class, $user);
+        if($id==$userid){
+            $form = $this->createForm(ForUserType::class, $user);
             $form->handleRequest($request);
     
             if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+                $user->setPassword($this->hasher->hashPassword($user, $data->getPassword()));
                 $entityManager->flush();
     
                 return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
             }
-    
             return $this->render('user/edit.html.twig', [
+                'userCo'=> 'ROLZ_USER',
                 'user' => $user,
                 'form' => $form,
             ]);
-        }else{
+        } else if($this->getUser()->getRoles()[0]=='ROLE_ADMIN'){
+            $form = $this->createForm(UserType::class, $user);
+            $form->handleRequest($request);
+            $verif = false;
+            if($user->getRoles()[0]=="ROLE_USER"){
+                $verif = true;
+            }
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
+              return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
+            }
+            return $this->render('user/edit.html.twig', [
+                'userCo'=> $this->getUser()->getRoles()[0],
+                'user' => $user,
+                'form' => $form,
+                'verif'=>$verif,
+            ]);
+        } else {
             throw new AccessDeniedException('Access denied');
         }
    
