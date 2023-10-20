@@ -3,7 +3,10 @@
 {% block title %}Postulate{% endblock %}
 
 {% block body %}
-    <h1>Postulate</h1>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+    <h1 class="text-3xl font-bold">Postulate</h1>
 
     <table class="table">
         <tbody>
@@ -45,9 +48,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_postulate_index') }}">back to list</a>
+    <a href="{{ path('app_postulate_index') }}" class="inline-block bg-blue-500 hover:bg-red-400 text-black font-bold py-2 px-4 rounded mr-2 ml-2">back to list</a>
 
-    <a href="{{ path('app_postulate_edit', {'id': postulate.id}) }}">edit</a>
+    <a href="{{ path('app_postulate_edit', {'id': postulate.id}) }}" class="inline-block bg-blue-500 hover:bg-red-400 text-black font-bold py-2 px-4 rounded mr-2">edit</a>
 
     {{ include('postulate/_delete_form.html.twig') }}
 {% endblock %}

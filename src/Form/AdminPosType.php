@@ -28,8 +28,11 @@ class AdminPosType extends AbstractType
                 'choices'=>$this->userRepository->getRoleUser(),
                 'choice_label'=>'email',
                 'required'=>false,
+                'label'=>false
             ])
-            ->add('advertisementId')
+            ->add('advertisementId',null,[
+                'label'=>false
+            ])
 
             ->add('emailSent', TextareaType::class,[
                 'label'=> false,

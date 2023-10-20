@@ -1,4 +1,60 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Job Hidden</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  {% include 'style.html.twig' %}
+  <body class="flex items-center justify-center h-screen bg-gray-100">
+    {{form_start(form)}}
+    <div class="max-w-md mx-auto border border-gray-300 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 rounded-lg">
+        <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Email</label>
+            {{form_row(form.email,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Mot de pass</label>
+            {{form_row(form.password,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Prénom</label>
+            {{form_row(form.firstName,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Nom</label>
+            {{form_row(form.lastName,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Date de naissance</label>
+            {{form_row(form.birth,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Genre</label>
+            {{form_row(form.gender,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+       
+          <div class="mb-6">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Téléphone</label>
+            {{form_row(form.phone,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Ville</label>
+            {{form_row(form.city,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Entreprise</label>
+            {{form_row(form.companyId,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="flex items-center justify-between">
+            <button type="submit" class="custom-button bg-green-400 hover:bg-green-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-green-400 w-full">{{ button_label|default('Save') }}</button>
+            {{form_end(form)}}
+          </div>
+        </form>
+      </div>          
+</body>
+
