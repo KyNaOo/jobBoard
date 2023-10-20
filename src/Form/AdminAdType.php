@@ -28,37 +28,43 @@ class AdminAdType extends AbstractType
             'label'=> false,
             'attr'=>[
                 'placeholder'=>"Titre"
-            ]
+            ],
+            'required'=>true
         ])
         ->add('description', TextareaType::class,[
             'label'=> false,
             'attr'=>[
                 'placeholder'=>"Description"
-            ]
+            ],
+            'required'=>true
         ])
         ->add('location', TextType::class,[
             'label'=> false,
             'attr'=>[
                 'placeholder'=>"Ville"
-            ]
+            ],
+            'required'=>true
         ])
         ->add('adress', TextType::class,[
             'label'=> false,
             'attr'=>[
                 'placeholder'=>"Adresse"
-            ]
+            ],
+            'required'=>true
         ])
         ->add('wages', TextType::class,[
             'label'=> false,
             'attr'=>[
                 'placeholder'=>"Salaire"
-            ]
+            ],
+            'required'=>true
         ])
         ->add('workingTime', TextType::class,[
             'label'=> false,
             'attr'=>[
                 'placeholder'=>"Heures par semaine"
-            ]
+            ],
+            'required'=>true
         ])
         ->add('contract', TextType::class,[
             'label'=> false,

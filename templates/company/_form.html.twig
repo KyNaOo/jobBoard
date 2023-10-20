@@ -1,4 +1,51 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Job Hidden</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  {% include 'style.html.twig' %}
+  <body class="flex items-center justify-center h-screen bg-gray-100">
+    {{form_start(form)}}
+    <div class="max-w-md mx-auto border border-gray-300 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 rounded-lg">
+        <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Name</label>
+            {{form_row(form.name,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Location</label>
+            {{form_row(form.location,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Creation</label>
+            {{form_row(form.creationDate,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Revenue</label>
+            {{form_row(form.revenues,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Employees</label>
+            {{form_row(form.nbEmployees,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2">Domain</label>
+            {{form_row(form.domain,{'attr':{'class':'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+          </div>
+          <div class="mb-4">
+            <button type="submit" class="bg-green-400 hover:bg-green-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-green-400 w-full">Post</button>
+          </div>
+          <div class="mb-4">
+            <a href="{{ path('app_company_index') }}" class="custom-button bg-green-400 hover-bg-green-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-green-400 w-full">back to list</a>
+            {{form_end(form)}}
+          </div>
+        </form>
+      </div>          
+</body>
+

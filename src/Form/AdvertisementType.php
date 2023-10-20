@@ -17,24 +17,31 @@ class AdvertisementType extends AbstractType
         $builder
             ->add('title', TextType::class,[
                 'label'=> false,
+                'require'=>true
             ])
             ->add('description', TextareaType::class,[
                 'label'=> false,
+                'required'=>true
             ])
             ->add('location', TextType::class,[
                 'label'=> false,
+                'required'=>false
             ])
             ->add('adress', TextType::class,[
                 'label'=> false,
+                'required'=>true
             ])
             ->add('wages', TextType::class,[
                 'label'=> false,
+                'required'=>true
             ])
             ->add('workingTime', TextType::class,[
                 'label'=> false,
+                'required'=>true
             ])
             ->add('contract', TextType::class,[
                 'label'=> false,
+                'required'=>true
             ])
       
         ;

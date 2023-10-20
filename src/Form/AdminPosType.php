@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Email;
 
 class AdminPosType extends AbstractType
 {
@@ -59,14 +61,25 @@ class AdminPosType extends AbstractType
                 'required'=>false,
                 'attr'=>[
                     'placeholder'=>"tel"
-                ]
+                ],   
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^\d{10,13}$/',
+                        'message' => 'Please enter a valid phone number (10 to 13 digits).',
+                    ]),
+                ],
             ])
             ->add('userEmail', TextType::class,[
                 'label'=> false,
                 'required'=>false,
                 'attr'=>[
                     'placeholder'=>"Email"
-                ]
+                ],
+                'constraints' => [
+                    new Email([
+                        'message' => 'The email "{{ value }}" is not a valid email.',
+                    ]),
+                ],
             ])
         ;
     }
