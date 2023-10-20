@@ -8,18 +8,36 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Annonce</th>
                 <th>EmailSent</th>
                 <th>Date</th>
+                <th>User</th>
+                <th>User Firstname</th>
+                <th>User Lastname</th>
+                <th>User tel</th>
+                <th>User email</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for postulate in postulates %}
             <tr>
-                <td>{{ postulate.id }}</td>
+                <td>{{ postulate.advertisementId }}</td>
                 <td>{{ postulate.emailSent }}</td>
                 <td>{{ postulate.date ? postulate.date|date('Y-m-d') : '' }}</td>
+                {% if postulate.userId %}
+                <td>{{ postulate.userId}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                {% else %}
+                <td></td>
+                <td>{{ postulate.userName}}</td>
+                <td>{{ postulate.userLastName}}</td>
+                <td>{{ postulate.userTel}}</td>
+                <td>{{ postulate.userEmail}}</td>
+                {% endif %}
                 <td>
                     <a href="{{ path('app_postulate_show', {'id': postulate.id}) }}">show</a>
                     <a href="{{ path('app_postulate_edit', {'id': postulate.id}) }}">edit</a>

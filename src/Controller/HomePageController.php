@@ -35,7 +35,7 @@ class HomePageController extends AbstractController
             if ($formData['search']){
                 $ads = $advertisementRepository->getAdByTitle($formData['search']);
             } else {
-                $ads = [];
+                $ads = $advertisementRepository->getFiveLatestAd();
             }
             return $this->render('home_page/index.html.twig', [
                 'form' => $form->createView(),

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Advertisement;
+use App\Form\AdminAdType;
 use App\Form\AdvertisementType;
 use App\Repository\AdvertisementRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,11 +26,13 @@ class AdvertisementController extends AbstractController
     #[Route('/new', name: 'app_advertisement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $date = new \DateTime();
         $advertisement = new Advertisement();
-        $form = $this->createForm(AdvertisementType::class, $advertisement);
+        $form = $this->createForm(AdminAdType::class, $advertisement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $advertisement->setDatePub($date);
             $entityManager->persist($advertisement);
             $entityManager->flush();
 
@@ -53,7 +56,7 @@ class AdvertisementController extends AbstractController
     #[Route('/{id}/edit', name: 'app_advertisement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Advertisement $advertisement, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AdvertisementType::class, $advertisement);
+        $form = $this->createForm(AdminAdType::class, $advertisement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

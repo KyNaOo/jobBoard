@@ -40,6 +40,35 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function getRhUser()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT u FROM App\Entity\User u');
+        $users = $query->getResult();
+        $rhs = [];
+        foreach($users as $user){
+            if($user->getRoles()[0]=='ROLE_RH'){
+                array_push($rhs, $user);
+            }
+        }
+
+        return $rhs;
+    }
+
+    public function getRoleUser()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT u FROM App\Entity\User u');
+        $users = $query->getResult();
+        $usrs = [];
+        foreach($users as $user){
+            if($user->getRoles()[0]=='ROLE_USER'){
+                array_push($usrs, $user);
+            }
+        }
+
+        return $usrs;
+    }
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

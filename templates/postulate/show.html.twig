@@ -19,6 +19,29 @@
                 <th>Date</th>
                 <td>{{ postulate.date ? postulate.date|date('Y-m-d') : '' }}</td>
             </tr>
+            {% if postulate.userId %}
+            <tr>
+                <th>User</th>
+                <td>{{ postulate.userId }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <th>Guest Name</th>
+                <td>{{ postulate.userName }}</td>
+            </tr>
+            <tr>
+                <th>Guest last name</th>
+                <td>{{ postulate.userLastName }}</td>
+            </tr>
+            <tr>
+                <th>Guest tel</th>
+                <td>{{ postulate.userTel }}</td>
+            </tr>
+            <tr>
+                <th>Guest email</th>
+                <td>{{ postulate.userEmail }}</td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 

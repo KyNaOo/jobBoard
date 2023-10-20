@@ -14,6 +14,7 @@ class SearchTitleFormType extends AbstractType
         $builder
             ->add('search', TextType::class,[
                 'label'=> false,
+                'required'=>false,
                 'attr'=>[
                     'placeholder'=>"titre"
                 ]

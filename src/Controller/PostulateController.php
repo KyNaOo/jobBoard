@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Postulate;
+use App\Form\AdminPosType;
 use App\Form\PostulateType;
 use App\Repository\PostulateRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,7 +27,7 @@ class PostulateController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $postulate = new Postulate();
-        $form = $this->createForm(PostulateType::class, $postulate);
+        $form = $this->createForm(AdminPosType::class, $postulate);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +54,7 @@ class PostulateController extends AbstractController
     #[Route('/{id}/edit', name: 'app_postulate_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Postulate $postulate, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(PostulateType::class, $postulate);
+        $form = $this->createForm(AdminPosType::class, $postulate);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

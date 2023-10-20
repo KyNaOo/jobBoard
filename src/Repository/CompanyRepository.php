@@ -28,6 +28,13 @@ class CompanyRepository extends ServiceEntityRepository
         $company = $query->getResult();
         return $company;
     }
+    public function getCompanyWithRh()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT co FROM App\Entity\Company co, App\Entity\User u WHERE u.companyId=co.id');
+        $company = $query->getResult();
+        return $company;
+    }
 
 //    /**
 //     * @return Company[] Returns an array of Company objects

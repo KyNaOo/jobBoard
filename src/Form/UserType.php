@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType; 
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Choice;
 
@@ -19,6 +20,9 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class,[
                 'label'=>'Adresse Email'
+            ])
+            ->add('password', PasswordType::class,[
+                'label'=>'Password'
             ])
             ->add('firstName', TextType::class,[
                 'label'=>'Prénom'
@@ -47,6 +51,7 @@ class UserType extends AbstractType
             ->add('city', TextType::class,[
                 'label'=>'Ville'
             ])
+            ->add('companyId')
         
         ;
     }

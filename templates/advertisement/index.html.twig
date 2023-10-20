@@ -8,24 +8,24 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Location</th>
                 <th>Adress</th>
                 <th>Wages</th>
+                <th>Offerer</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for advertisement in advertisements %}
             <tr>
-                <td>{{ advertisement.id }}</td>
                 <td>{{ advertisement.title }}</td>
                 <td>{{ advertisement.description }}</td>
                 <td>{{ advertisement.location }}</td>
                 <td>{{ advertisement.adress }}</td>
                 <td>{{ advertisement.wages }}</td>
+                <td>{{ advertisement.userId }}</td>
                 <td>
                     <a href="{{ path('app_advertisement_show', {'id': advertisement.id}) }}">show</a>
                     <a href="{{ path('app_advertisement_edit', {'id': advertisement.id}) }}">edit</a>
