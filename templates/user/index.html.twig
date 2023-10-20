@@ -52,7 +52,7 @@
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}" class="inline-block bg-blue-500 hover:bg-red-400 text-black font-bold py-2 px-4 rounded mr-2">show</a>
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="inline-block bg-blue-500 hover:bg-red-400 text-black font-bold py-2 px-4 rounded mr-2">edit</a>
-                </td>
+                    <a class="inline-block">{%include 'user/_delete_form.html.twig'%}</a>       
             </tr>
         {% else %}
             <tr>

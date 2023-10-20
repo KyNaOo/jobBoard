@@ -3,7 +3,10 @@
 {% block title %}Company index{% endblock %}
 
 {% block body %}
-    <h1>Company index</h1>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+    <h1 class="text-3xl font-bold">Companies</h1>
 
     <table class="table">
         <thead>
@@ -27,8 +30,9 @@
                 <td>{{ company.nbEmployees }}</td>
                 <td>{{ company.domain }}</td>
                 <td>
-                    <a href="{{ path('app_company_show', {'id': company.id}) }}">show</a>
-                    <a href="{{ path('app_company_edit', {'id': company.id}) }}">edit</a>
+                    <a href="{{ path('app_company_show', {'id': company.id}) }}" class="inline-block bg-blue-500 hover:bg-red-400 text-black font-bold py-2 px-4 rounded mr-2">show</a>
+                    <a href="{{ path('app_company_edit', {'id': company.id}) }}" class="inline-block bg-blue-500 hover:bg-red-400 text-black font-bold py-2 px-4 rounded mr-2">edit</a>
+                    <a class="inline-block">{%include 'company/_delete_form.html.twig'%}</a>
                 </td>
             </tr>
         {% else %}
@@ -38,6 +42,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_company_new') }}">Create new</a>
+    <a href="{{ path('app_company_new') }}"class="inline-block bg-green-500 hover:bg-red-400 font-bold rounded mr-2 px-2 py-3 mb-2 ml-2">Create new</a>
+    <a href="{{ path('app_admin') }}"class="inline-block bg-green-500 hover:bg-red-400 font-bold rounded mr-2 px-2 py-3 mb-2 ml-2">Back to home</a>
 {% endblock %}

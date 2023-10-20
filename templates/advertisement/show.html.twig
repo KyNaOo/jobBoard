@@ -3,7 +3,7 @@
 {% block title %}Advertisement{% endblock %}
 
 {% block body %}
-    <h1>Advertisement</h1>
+
 
     <table class="table">
         <tbody>
@@ -31,12 +31,15 @@
                 <th>Offerer</th>
                 <td>{{ advertisement.userId }}</td>
             </tr>
+            <tr>
+                <th>Contract</th>
+                <td>{{ advertisement.contract }}</td>
+            </tr>
         </tbody>
     </table>
+    <a href="{{ path('app_advertisement_index') }}" class="inline-block bg-blue-500 hover:bg-red-400 text-black font-bold py-2 px-4 rounded mr-2 ml-2">back to list</a>
 
-    <a href="{{ path('app_advertisement_index') }}">back to list</a>
-
-    <a href="{{ path('app_advertisement_edit', {'id': advertisement.id}) }}">edit</a>
+    <a href="{{ path('app_advertisement_edit', {'id': advertisement.id}) }}" class="inline-block bg-blue-500 hover:bg-red-400 text-black font-bold py-2 px-4 rounded mr-2">edit</a>
 
     {{ include('advertisement/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,11 +1,3 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Postulate{% endblock %}
-
 {% block body %}
-    <h1>Create new Postulate</h1>
-
     {{ include('postulate/_form.html.twig') }}
-
-    <a href="{{ path('app_postulate_index') }}">back to list</a>
 {% endblock %}
