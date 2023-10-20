@@ -96,9 +96,7 @@ class HomePageController extends AbstractController
             $formData->setCompanyId($company)->setUserId($this->getUser())->setDatePub($date);
             $entityManager->persist($formData);
             $entityManager->flush();
-            return $this->render('home_page/postJob.html.twig', [
-                'form' => $form->createView(),
-            ]);
+            return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('home_page/postJob.html.twig', [
             'form' => $form->createView(),
