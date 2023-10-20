@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Length;
 
 class UserType extends AbstractType
 {
@@ -19,23 +22,28 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class,[
-                'label'=>'Adresse Email'
+                'label'=>false,
+                'constraints'=>[
+                    new Email([
+                        'message'=>'Email non valide'
+                    ])
+                ]
             ])
             ->add('password', PasswordType::class,[
-                'label'=>'Password'
+                'label'=>false
             ])
             ->add('firstName', TextType::class,[
-                'label'=>'Prénom'
+                'label'=>false
             ])
             ->add('lastName', TextType::class,[
-                'label'=>'Nom'
+                'label'=>false
             ])
             ->add('birth', DateType::class, [
-                'label'=>'Date de naissance',
+                'label'=>false,
                 'years'=>range(date('Y')-100, date('Y')-14),
                 ])
             ->add('gender', ChoiceType::class, [
-                'label'=>'Genre',
+                'label'=>false,
                 'choices' => [
                     'Male' => 1,
                     'Female' => 2,
@@ -46,12 +54,26 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('phone', TextType::class,[
-                'label'=>'N° tel'
+                'label'=>false,
+                'constraints'=>[
+                    new Length([
+                        'min'=>10,
+                        'max'=>13,
+                        'minMessage' => 'The phone number must have at least {{ limit }} digits.',
+                        'maxMessage' => 'The phone number cannot have more than {{ limit }} characters.',
+                    ]),
+                    new Regex([
+                        'pattern' => '/^\d+$/',
+                        'message' => 'The phone number can only contain digits (0-9).',
+                    ]),
+                ]
             ])
             ->add('city', TextType::class,[
-                'label'=>'Ville'
+                'label'=>false
             ])
-            ->add('companyId')
+            ->add('companyId',null,[
+                'label'=>false
+            ])
         
         ;
     }

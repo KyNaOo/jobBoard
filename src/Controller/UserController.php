@@ -67,7 +67,7 @@ class UserController extends AbstractController
     {
         $id= $request->attributes->get('id');
         $userid=$this->getUser()->getId();
-        if($id==$userid){
+        if($id==$userid || $this->getUser()->getRoles()[0]=='ROLE_ADMIN'){
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
     
