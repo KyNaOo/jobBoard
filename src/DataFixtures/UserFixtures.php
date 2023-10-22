@@ -72,7 +72,8 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
         ->setCity('Paris')
         ->setGender(1)
         ->setEmail('qinhao.wu@gmail.com')
-        ->setBirth($faker->dateTimeBetween('-100 years','-14 years'));
+        ->setBirth($faker->dateTimeBetween('-100 years','-14 years'))
+        ->setCompanyId($companies[random_int(0, count($companies)-1)]);
         $manager->persist($user);
         $manager->flush();
     }

@@ -17,7 +17,7 @@ class AdvertisementType extends AbstractType
         $builder
             ->add('title', TextType::class,[
                 'label'=> false,
-                'require'=>true
+                'required'=>true
             ])
             ->add('description', TextareaType::class,[
                 'label'=> false,
