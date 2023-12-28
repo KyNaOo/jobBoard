@@ -1,9 +1,9 @@
-# Foobar
+# Presentation
 
 Symfony is a framework that represents a set of standalone PHP components (also referred to as libraries) that can be used in private or open-source web projects.
 
 ## Installation
-After the clonage of the repository, go on the project with this command :
+After git clone, go in the project with this command :
 ```bash
 cd "name of the directory"
 ```
