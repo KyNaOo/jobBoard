@@ -11,7 +11,8 @@ When you are in the directory, run this command :
 ```bash
 composer install
 ```
-If you have some error during composer install, go to the next step with the .env file and composer install again
+If you have some error during composer install, go to the next step with the .env file and composer install again.
+
 You have to create ad file named ".env" in the root of the project.
 
 This file will etablish the connection with the database.
